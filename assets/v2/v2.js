@@ -80,10 +80,27 @@
 		form.addEventListener('submit', function (e) { e.preventDefault(); });
 	});
 
-	/* presupuesto: si se llega desde una ficha (?puerta=thor-20) la puerta ya va en el asunto */
+	/* presupuesto con las medidas de «Cómo medir tu puerta» (?medidas=...&puerta=...): van en la consulta */
 	var formP = document.querySelector('.formulario-contacto[data-puertas]');
 	var pedida = (location.search.match(/[?&]puerta=([a-z0-9-]+)/) || [])[1];
-	if (formP && pedida) {
+	var medidasQ = (location.search.match(/[?&]medidas=([^&]+)/) || [])[1], conMedidas = false;
+	if (formP && medidasQ) {
+		try { medidasQ = decodeURIComponent(medidasQ.replace(/\+/g, ' ')); } catch (err) { medidasQ = ''; }
+		if (medidasQ) {
+			var nombresM = {};
+			try { nombresM = JSON.parse(formP.getAttribute('data-puertas')); } catch (err) { nombresM = {}; }
+			var puertaM = pedida ? nombresM[pedida] : null;
+			if (formP.elements.asunto && !formP.elements.asunto.value) formP.elements.asunto.value = puertaM ? 'Presupuesto de la ' + puertaM + ' con mis medidas' : 'Presupuesto con mis medidas';
+			if (formP.elements.consulta && !formP.elements.consulta.value) formP.elements.consulta.value = medidasQ.slice(0, 1990);
+			var notaM = document.querySelector('.v2-form-nota'), ayudaM = document.querySelector('.v2-form-ayuda');
+			if (notaM) { notaM.textContent = 'Tus medidas ya están en la consulta. Completa tus datos y envíanosla.'; notaM.hidden = false; }
+			if (ayudaM) ayudaM.hidden = true;
+			conMedidas = true;
+		}
+	}
+
+	/* presupuesto: si se llega desde una ficha (?puerta=thor-20) la puerta ya va en el asunto */
+	if (formP && pedida && !conMedidas) {
 		var nombresP = {};
 		try { nombresP = JSON.parse(formP.getAttribute('data-puertas')); } catch (err) { nombresP = {}; }
 		var nombreP = nombresP[pedida];
