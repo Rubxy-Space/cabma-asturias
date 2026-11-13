@@ -1,0 +1,182 @@
+/* CABMA Asturias: ajustes sobre el tema original */
+:root {
+	--rojo: #a41714;
+	--azul: #142f5f;
+	--gris: #636769;
+	--gris-claro: #f4f5f6;
+	--borde: #dddddd;
+}
+html { scroll-padding-top: 130px; }
+body { background: #fff; overflow-x: hidden; }
+img { max-width: 100%; height: auto; }
+
+/* ---------- logo con region */
+.logo-enlace { display: inline-flex; align-items: flex-end; gap: 10px; color: inherit; }
+.logo-enlace:hover { color: inherit; }
+.logo-enlace .logo { display: block; }
+.logo-region {
+	display: inline-block;
+	margin-bottom: 18px;
+	padding: 3px 8px 2px;
+	background: var(--rojo);
+	color: #fff;
+	font-weight: 700;
+	font-size: 13px;
+	line-height: 1.2;
+	letter-spacing: 2.4px;
+	border-radius: 2px;
+}
+.cabecera .datos-contacto .tel a { color: inherit; }
+@media only screen and (min-width: 769px) {
+	.cabecera .ancho-20 { width: 26%; }
+	.cabecera .ancho-80 { width: 74%; }
+}
+@media only screen and (max-width: 768px) {
+	.logo-region { margin-bottom: 16px; font-size: 12px; }
+}
+.menu-principal .current-menu-item > a { color: var(--rojo); }
+
+/* ---------- carruseles (sustituyen a Owl Carousel) */
+.ca { position: relative; overflow: hidden; }
+.ca-track { display: flex; transition: transform .8s ease; will-change: transform; }
+.ca-track > .item { flex: 0 0 100%; box-sizing: border-box; min-width: 0; }
+.ca-gap > .ca-track > .item { padding: 0 5px; }
+.ca-dots { display: flex; justify-content: center; gap: 8px; padding: 12px 0 4px; }
+.ca-dots button {
+	width: 12px; height: 12px; padding: 0; border: 0; border-radius: 50%;
+	background: #d1d3d5; cursor: pointer; transition: background .3s;
+}
+.ca-dots button[aria-current="true"] { background: var(--rojo); }
+.owl-carousel-inicio .ca-dots { position: absolute; left: 0; right: 0; bottom: 8px; }
+.customNavigation { text-align: center; padding-top: 10px; }
+.customNavigation .button {
+	display: inline-block; width: 38px; height: 38px; line-height: 38px; margin: 0 4px;
+	border: solid 1px var(--borde); border-radius: 50%; color: var(--gris); cursor: pointer;
+}
+.customNavigation .button:hover { background: var(--rojo); border-color: var(--rojo); color: #fff; }
+@media (prefers-reduced-motion: reduce) { .ca-track { transition: none; } }
+
+/* ---------- visor de imagenes */
+.visor {
+	position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center;
+	background: rgba(0,0,0,.85); padding: 40px 16px; cursor: zoom-out;
+}
+.visor[hidden] { display: none; }
+.visor img { max-width: 100%; max-height: 100%; box-shadow: 0 10px 40px rgba(0,0,0,.5); background: #fff; }
+.visor-cerrar {
+	position: absolute; top: 12px; right: 16px; width: 44px; height: 44px; border: 0; border-radius: 50%;
+	background: rgba(255,255,255,.15); color: #fff; font-size: 26px; line-height: 44px; cursor: pointer;
+}
+
+/* ---------- aviso de cookies */
+.aviso-cookies {
+	position: fixed; left: 0; right: 0; bottom: 0; z-index: 900;
+	display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 16px;
+	padding: 14px 16px; background: rgba(39,43,45,.96); color: #fff; font-size: 14px; text-align: center;
+}
+.aviso-cookies[hidden] { display: none; }
+.aviso-cookies a { color: #fff; text-decoration: underline; font-weight: 600; }
+.aviso-cookies-aceptar {
+	border: 0; border-radius: 3px; padding: 7px 16px; background: var(--rojo); color: #fff;
+	font: inherit; font-weight: 600; cursor: pointer;
+}
+
+/* ---------- pie */
+.pie .pie-subtitulo { margin-top: 30px; }
+.pie .datos-contacto .tel a { color: #fff; }
+
+/* ---------- inicio: puntos de venta */
+.puntos-inicio { background: var(--gris-claro); }
+.punto-venta {
+	height: 100%; box-sizing: border-box; margin-bottom: 20px; padding: 22px 20px;
+	background: #fff; border-top: solid 4px var(--azul); box-shadow: 0 2px 10px rgba(0,0,0,.06);
+}
+.punto-venta.punto-sede { border-top-color: var(--rojo); }
+.punto-venta h4 { margin: 0 0 8px; color: var(--azul); text-transform: uppercase; letter-spacing: .5px; }
+.punto-sede h4 { color: var(--rojo); }
+.punto-venta p { margin: 0 0 8px; color: var(--gris); line-height: 1.45; }
+.punto-venta a { font-weight: 600; }
+.puntos-inicio .boton { margin-top: 10px; }
+.columnas-altura > .col { margin-bottom: 20px; }
+
+/* ---------- cilindros */
+.tarjeta-cilindro {
+	display: flex; flex-direction: column; align-items: center; height: 100%; box-sizing: border-box;
+	padding: 24px; border: solid 1px var(--borde); text-align: center; color: var(--gris);
+}
+.tarjeta-cilindro:hover { color: var(--gris); box-shadow: 0 6px 24px rgba(0,0,0,.1); }
+.tarjeta-cilindro img { max-height: 260px; width: auto; margin-bottom: 12px; }
+.tarjeta-cilindro h3 { color: var(--azul); margin: 6px 0; text-transform: uppercase; }
+.tarjeta-cilindro .boton { margin-top: auto; padding: 12px 20px; }
+.nota-cilindros { margin-top: 30px; color: var(--gris); font-size: 110%; }
+
+/* ---------- puntos de venta */
+.puntos-cabecera { padding-bottom: 0; }
+.elementor-custom-embed iframe, .mapa iframe { width: 100%; min-height: 300px; border: 0; display: block; }
+.mapa { margin-top: 20px; }
+
+/* ---------- contacto */
+.contacto-datos h3 { color: #993300; margin-bottom: 4px; }
+.contacto-datos > p { color: var(--gris); margin-top: 0; }
+.form-titulo { color: #000080; font-size: 15px; margin: 0 0 16px; }
+.formulario-contacto label { display: block; font-weight: 600; margin-bottom: 4px; }
+.formulario-contacto label small { font-weight: 400; color: var(--gris); }
+.formulario-contacto input[type=text],
+.formulario-contacto input[type=email],
+.formulario-contacto input[type=tel],
+.formulario-contacto textarea {
+	width: 100%; box-sizing: border-box; padding: 10px 12px; border: solid 1px #bdbfc1; border-radius: 3px;
+	font: inherit; background: #fff; color: #000;
+}
+.formulario-contacto input:focus, .formulario-contacto textarea:focus { outline: 2px solid var(--rojo); outline-offset: 0; border-color: var(--rojo); }
+.formulario-contacto .acepto label { font-weight: 400; display: flex; gap: 8px; align-items: flex-start; }
+.formulario-contacto .acepto input { margin-top: 4px; }
+.formulario-contacto .boton-enviar { border: 0; font: inherit; font-weight: 600; cursor: pointer; padding: 14px 28px; }
+.formulario-contacto .campo-error { border-color: var(--rojo) !important; }
+.form-aviso { min-height: 1.4em; font-weight: 600; }
+.form-aviso.error { color: var(--rojo); }
+.form-aviso.ok { color: #2a7a2a; }
+
+/* ---------- blog */
+.leer-mas { font-weight: 600; }
+.leer-mas i { font-size: 80%; margin-left: 4px; }
+.blog-widget { padding: 20px; margin-bottom: 24px; background: var(--gris-claro); }
+.blog-widget h3 { margin-top: 0; color: var(--rojo); text-transform: uppercase; }
+.blog-widget .boton { padding: 12px 18px; }
+
+/* ---------- textos legales */
+.texto-legal { max-width: 900px; }
+.texto-legal h2 { font-size: 130%; color: var(--azul); margin: 30px 0 10px; }
+.texto-legal p, .texto-legal li { line-height: 1.6; color: #333; }
+.pendiente { background: #fff3b0; padding: 0 4px; border-radius: 2px; }
+.aviso-pendiente { background: #fff8d6; border-left: solid 4px #e0b400; padding: 10px 14px; margin: 10px 0 20px; }
+
+/* ---------- movil */
+@media only screen and (max-width: 768px) {
+	.contenedor { padding-left: 0; padding-right: 0; }
+	.elementor-custom-embed iframe, .mapa iframe { min-height: 240px; }
+	.aviso-cookies { font-size: 13px; }
+}
+
+/* botones dentro de widgets y textos */
+a.boton, a.boton:hover, aside .widget a.boton, aside .widget a.boton:hover { color: #fff; }
+a.boton:hover { background: #7d110f; }
+
+/* =====================================================================
+   INTRO 3D: puerta real que se abre al entrar (solo en Inicio, ver intro3d.js)
+   ===================================================================== */
+.intro { display: none; }
+html.con-intro, html.con-intro body { overflow: hidden; }
+html.con-intro .intro { display: block; }
+.intro { position: fixed; inset: 0; z-index: 3000; overflow: hidden; background: #e9e4dc; transition: opacity .8s ease; }
+.intro-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; }
+.intro::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 75% 80% at 50% 48%, rgba(0,0,0,0) 55%, rgba(25,18,10,.28) 100%); }
+.intro-blanco { position: absolute; inset: 0; z-index: 1; background: #fff; opacity: 0; pointer-events: none; }
+.intro-saltar {
+	position: absolute; right: 16px; bottom: 16px; z-index: 2; padding: 10px 18px; border: 0; border-radius: 999px;
+	background: rgba(20,22,24,.62); color: #fff; font: 600 14px/1 'Source Sans Pro', sans-serif; letter-spacing: .4px; cursor: pointer;
+	-webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.intro-saltar:hover, .intro-saltar:focus-visible { background: var(--rojo); }
+.intro.fase-fin { opacity: 0; pointer-events: none; }
+.intro.fase-fin .intro-blanco { opacity: 1; }
