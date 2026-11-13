@@ -60,7 +60,7 @@
 	Array.prototype.forEach.call(document.querySelectorAll('[data-elige]'), function (sec) {
 		var form = sec.querySelector('form'), aviso = sec.querySelector('.v2-elige-aviso'), res = sec.querySelector('.v2-elige-res');
 		var items = sec.querySelectorAll('[data-puerta]'), nombres = {};
-		Array.prototype.forEach.call(items, function (li) { nombres[li.getAttribute('data-puerta')] = li.querySelector('strong').textContent; });
+		Array.prototype.forEach.call(items, function (li) { nombres[li.getAttribute('data-puerta')] = li.querySelector('.v2-tarjeta-nom, strong').textContent; });
 		var TABLA = { maximo: ['premium-5c', 'premium-4c'], alto: ['thor-20-plus', 'premium-3c'], precio: ['thor-20', 'eco-thor'] };
 		function valor(n) { var r = form.querySelector('input[name="' + n + '"]:checked'); return r ? r.value : null; }
 		function actualizar() {

@@ -791,7 +791,7 @@
 		});
 	}
 
-	window.CabmaCilindro3D = { MODELOS: MODELOS, crear: crear };
+	window.CabmaCilindro3D = { MODELOS: MODELOS, crear: crear, escena: escenaBase };
 	Array.prototype.forEach.call(document.querySelectorAll('.v2-foto[data-cilindro]'), visor);
 	var sec = document.querySelector('.v2-3d[data-cilindro]');
 	if (sec) despiece(sec);
