@@ -99,6 +99,20 @@
 		}
 	}
 
+	/* presupuesto desde una página de zona (?zona=oviedo): la zona va en el asunto */
+	var zonaQ = (location.search.match(/[?&]zona=([a-z-]+)/) || [])[1];
+	if (formP && zonaQ && !conMedidas) {
+		var zonasP = {};
+		try { zonasP = JSON.parse(formP.getAttribute('data-zonas') || '{}'); } catch (err) { zonasP = {}; }
+		if (zonasP[zonaQ]) {
+			if (formP.elements.asunto && !formP.elements.asunto.value) formP.elements.asunto.value = 'Presupuesto de una puerta acorazada ' + zonasP[zonaQ];
+			if (formP.elements.consulta && !formP.elements.consulta.value) formP.elements.consulta.value = 'Hola, quiero presupuesto de una puerta acorazada. Vivo ' + zonasP[zonaQ] + ', en (tu pueblo o barrio): ';
+			var notaZ = document.querySelector('.v2-form-nota');
+			if (notaZ) { notaZ.textContent = 'Ya hemos puesto tu zona en el asunto. Completa la consulta con tu pueblo o barrio y tus datos.'; notaZ.hidden = false; }
+			conMedidas = true;
+		}
+	}
+
 	/* presupuesto: si se llega desde una ficha (?puerta=thor-20) la puerta ya va en el asunto */
 	if (formP && pedida && !conMedidas) {
 		var nombresP = {};
@@ -273,5 +287,47 @@
 	Array.prototype.forEach.call(bloques, function (b, i) {
 		b.style.transitionDelay = (b.parentElement && b.parentElement.classList.contains('v2-herrajes') ? (i % 4) * 70 : 0) + 'ms';
 		obs.observe(b);
+	});
+})();
+
+/* Dónde instalamos: buscador de concejos y pueblos, y la tarjeta de cada zona ilumina su zona en el mapa */
+(function () {
+	'use strict';
+	/* mapas de zonas: textos y marcas en pixeles de pantalla (--u = unidades del mapa por pixel) */
+	var mapas = document.querySelectorAll('svg.zm');
+	function escalar() {
+		Array.prototype.forEach.call(mapas, function (m) {
+			var w = m.getBoundingClientRect().width;
+			if (w && m.viewBox && m.viewBox.baseVal) m.style.setProperty('--u', (m.viewBox.baseVal.width / w).toFixed(4));
+		});
+	}
+	if (mapas.length) {
+		escalar();
+		if ('ResizeObserver' in window) { var ro = new ResizeObserver(escalar); Array.prototype.forEach.call(mapas, function (m) { ro.observe(m); }); }
+		else window.addEventListener('resize', escalar);
+	}
+	var campo = document.querySelector('[data-zonas-buscar]');
+	if (campo) {
+		var items = document.querySelectorAll('[data-zonas-lista] li'), nota = document.querySelector('.zonas-nota');
+		var norm = function (t) { return String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9ñ ]/g, ' ').replace(/\s+/g, ' ').trim(); };
+		var claves = Array.prototype.map.call(items, function (li) { return norm(li.getAttribute('data-buscar')); });
+		campo.addEventListener('input', function () {
+			var q = norm(campo.value), n = 0;
+			Array.prototype.forEach.call(items, function (li, i) {
+				var lugar = li.hasAttribute('data-lugar');
+				var ok = q ? claves[i].indexOf(q) >= 0 || (' ' + claves[i]).indexOf(' ' + q) >= 0 : !lugar;
+				li.hidden = !ok;
+				if (ok && q) n++;
+			});
+			if (nota) nota.textContent = !q ? '' : (n ? (n === 1 ? 'Un resultado.' : n + ' resultados.') : 'No lo tenemos en la lista, pero llegamos a toda Asturias: llámanos al 985 053 052.');
+		});
+	}
+	Array.prototype.forEach.call(document.querySelectorAll('[data-zona-tarjeta]'), function (t) {
+		var g = document.querySelector('.zm a[data-zona="' + t.getAttribute('data-zona-tarjeta') + '"]');
+		if (!g) return;
+		t.addEventListener('mouseenter', function () { g.classList.add('hover'); });
+		t.addEventListener('mouseleave', function () { g.classList.remove('hover'); });
+		t.addEventListener('focus', function () { g.classList.add('hover'); });
+		t.addEventListener('blur', function () { g.classList.remove('hover'); });
 	});
 })();

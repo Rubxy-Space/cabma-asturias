@@ -1093,3 +1093,84 @@ html.con-intro .intro { display: block; }
 .v2-form-ayuda { margin: 0 0 18px; color: var(--gris); font-size: 15px; line-height: 1.5; }
 .v2-form-ayuda[hidden] { display: none; }
 .v2-form-ayuda a { color: var(--tinta); font-weight: 700; }
+
+/* ---------- Zonas: dónde instalamos (mapa de zonas.py) */
+.v2-sub .v2-sub-zonas { margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid var(--linea); }
+.v2-sub .v2-sub-zonas a { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--tinta); }
+.v2-sub .v2-sub-zonas a::before { content: ""; flex: none; width: 18px; height: 18px; background: var(--rojo); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z'/%3E%3Ccircle cx='12' cy='9.5' r='2.5'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z'/%3E%3Ccircle cx='12' cy='9.5' r='2.5'/%3E%3C/svg%3E") center / contain no-repeat; }
+.zona-mapa { margin: 0; padding: 18px 18px 14px; border-radius: 24px; background: #fff; box-shadow: 0 0 0 1px rgba(21,23,26,.05); }
+.zona-mapa figcaption { margin: 12px 4px 0; color: var(--gris); font-size: 13.5px; line-height: 1.45; }
+.zona-mapa figcaption a { color: inherit; }
+.zm { display: block; width: 100%; height: auto; overflow: hidden; }
+.zm path, .zm circle { vector-effect: non-scaling-stroke; }
+.zm-zona path { fill: var(--zc, #e9e3da); stroke: #fff; stroke-width: .8; stroke-linejoin: round; transition: fill .2s; }
+.zm-zona:hover path, .zm-zona.hover path { fill: #e2a6a1; }
+.zm-zona.activa path { fill: var(--rojo); stroke: #e9b9b5; }
+.zm-zona.activa:hover path { fill: var(--rojo-osc); }
+.zm-zona:focus { outline: none; }
+.zm-zona:focus-visible path { stroke: var(--azul); stroke-width: 2.5; }
+.zm text { font-family: var(--f-tit); pointer-events: none; }
+.zm text { font-size: calc(var(--fs, 14px) * var(--u, 1)); stroke-width: calc(var(--fh, 4px) * var(--u, 1)); }
+.zm-et { --fs: 15px; font-weight: 800; fill: var(--tinta); text-anchor: middle; paint-order: stroke; stroke: rgba(255,255,255,.9); stroke-linejoin: round; }
+.zm-co { --fs: 11px; --fh: 3px; font-weight: 700; fill: #fff; text-anchor: middle; paint-order: stroke; stroke: rgba(125,17,15,.85); stroke-linejoin: round; }
+.zm:not(.zm-general) .zm-et { --fs: 12.5px; font-weight: 700; fill: #6d737a; }
+.zm .zm-et.activa { --fs: 15px; --fh: 3px; font-weight: 800; fill: #fff; stroke: var(--rojo-osc); }
+.zm-mar { --fs: 13px; font-style: italic; font-weight: 600; fill: #91a5b5; letter-spacing: .08em; text-anchor: middle; }
+.zm-punto, .zm-dest, .zm-km, .zm-onda { transform-box: fill-box; transform-origin: center; transform: scale(var(--u, 1)); }
+.zm-punto { fill: var(--tinta); stroke: #fff; stroke-width: 2.5; }
+.zm-onda { fill: var(--rojo); opacity: 0; animation: zmOnda 2.4s ease-out infinite; }
+.zm-sede-et { --fs: 12px; font-weight: 800; fill: var(--tinta); paint-order: stroke; stroke: #fff; stroke-width: 4px; stroke-linejoin: round; }
+.zm-ruta { fill: none; stroke: var(--tinta); stroke-width: 2.2; stroke-dasharray: 7 6; stroke-linecap: round; }
+.zm-dest { fill: #fff; stroke: var(--tinta); stroke-width: 2.5; }
+.zm-km rect { fill: var(--tinta); }
+.zm .zm-km text { font-size: 14px; stroke-width: 0; font-weight: 800; fill: #fff; text-anchor: middle; }
+@keyframes zmOnda { 0% { opacity: .55; transform: scale(calc(.6 * var(--u, 1))); } 100% { opacity: 0; transform: scale(calc(2.8 * var(--u, 1))); } }
+/* pagina de zona */
+.zona-cab .v2-datos { max-width: 780px; }
+.zona-datos dt { font-size: clamp(22px, 2.4vw, 32px); }
+.zona-grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 36px; align-items: start; }
+.zona-grid .zona-mapa { position: sticky; top: calc(var(--cab) + 20px); }
+.v2-sec .zona-concejos h2 { margin-bottom: 10px; font-size: clamp(26px, 2.6vw, 36px); }
+.zona-lista { margin: 18px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--linea); }
+.zona-lista li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; padding: 12px 0; border-bottom: 1px solid var(--linea); }
+.zl-nom { color: var(--tinta); font: 700 17px/1.25 var(--f-tit); }
+.zl-km { color: var(--rojo); font: 800 15px/1.25 var(--f-tit); white-space: nowrap; }
+.zl-lug { grid-column: 1 / -1; color: var(--gris); font-size: 14.5px; line-height: 1.45; }
+.zona-nota .v2-p a { color: var(--tinta); font-weight: 700; }
+.v2-sec .zona-faqs > h2 { margin-bottom: 20px; font-size: clamp(28px, 3vw, 40px); }
+.zona-otras-sec { padding: 0 0 88px; }
+.v2-sec .zona-otras-tit { margin-bottom: 14px; font-size: 22px; letter-spacing: -.02em; }
+.zona-otras { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.zona-otras a { display: inline-block; padding: 11px 17px; border-radius: 999px; background: #fff; box-shadow: 0 0 0 1px var(--linea); color: var(--tinta); font: 700 15px/1 var(--f-tit); text-decoration: none; transition: background .2s, color .2s; }
+.zona-otras a:hover { background: var(--tinta); color: #fff; }
+/* pagina general */
+.zonas-tarjetas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 22px 0 0; padding: 0; list-style: none; }
+.zonas-tarjeta { display: block; height: 100%; padding: 18px 18px 20px; border-radius: 18px; background: #fff; box-shadow: 0 0 0 1px rgba(21,23,26,.05); color: var(--texto) !important; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+.zonas-tarjeta:hover, .zonas-tarjeta:focus-visible { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(21,23,26,.1); }
+.zonas-color { display: block; width: 30px; height: 8px; margin-bottom: 12px; border-radius: 4px; background: var(--zc); }
+.v2-sec .zonas-tarjeta h2 { margin: 0 0 6px; font-size: 21px; letter-spacing: -.02em; }
+.zonas-tarjeta p { margin: 0; color: var(--gris); font-size: 14.5px; line-height: 1.4; }
+.zonas-tarjeta .zonas-nombres { margin-top: 6px; color: var(--texto); }
+.zonas-campo { margin: 0; }
+.zonas-campo label { display: block; margin-bottom: 8px; color: var(--tinta); font: 700 14.5px/1.2 var(--f-tit); }
+.zonas-campo input { width: 100%; max-width: 460px; padding: 14px 16px; border: 1.5px solid #d6d1c9; border-radius: 14px; background: #fff; color: var(--tinta); font: 600 18px/1.2 var(--f-txt); }
+.zonas-campo input:focus { outline: 2px solid var(--rojo); outline-offset: 1px; }
+.zonas-nota { min-height: 1.4em; margin: 10px 0 12px; color: var(--gris); font-size: 15px; }
+.zonas-lista { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 20px; margin: 0; padding: 0; list-style: none; }
+.zonas-lista li[hidden] { display: none; }
+.zonas-lista a { display: flex; flex-direction: column; gap: 2px; padding: 10px 0; border-bottom: 1px solid var(--linea); text-decoration: none; }
+.zonas-lista strong { color: var(--tinta); font: 700 16px/1.25 var(--f-tit); }
+.zonas-lista span { color: var(--gris); font-size: 13.5px; }
+.zonas-lista a:hover strong { color: var(--rojo); }
+@media (max-width: 900px) {
+	.zona-grid { grid-template-columns: 1fr; gap: 24px; }
+	.zona-grid .zona-mapa { position: relative; top: auto; }
+	.zonas-tarjetas, .zonas-lista { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+	.zona-mapa { padding: 12px 10px 10px; border-radius: 20px; }
+	.zm-general .zm-et, .zm-mar, .zm-sede-et, .zm:not(.zm-general) .zm-et:not(.activa) { display: none; }
+	.zm-co { --fs: 9.5px; --fh: 2.5px; }
+}
+@media (max-width: 480px) { .zonas-lista { grid-template-columns: 1fr; } .zonas-tarjetas { gap: 10px; } .zonas-tarjeta { padding: 14px 14px 16px; } }
+@media (prefers-reduced-motion: reduce) { .zm-onda { animation: none; } }
