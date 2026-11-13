@@ -80,28 +80,12 @@
 		form.addEventListener('submit', function (e) { e.preventDefault(); });
 	});
 
-	/* presupuesto con las medidas de «Cómo medir tu puerta» (?medidas=...&puerta=...): van en la consulta */
 	var formP = document.querySelector('.formulario-contacto[data-puertas]');
-	var pedida = (location.search.match(/[?&]puerta=([a-z0-9-]+)/) || [])[1];
-	var medidasQ = (location.search.match(/[?&]medidas=([^&]+)/) || [])[1], conMedidas = false;
-	if (formP && medidasQ) {
-		try { medidasQ = decodeURIComponent(medidasQ.replace(/\+/g, ' ')); } catch (err) { medidasQ = ''; }
-		if (medidasQ) {
-			var nombresM = {};
-			try { nombresM = JSON.parse(formP.getAttribute('data-puertas')); } catch (err) { nombresM = {}; }
-			var puertaM = pedida ? nombresM[pedida] : null;
-			if (formP.elements.asunto && !formP.elements.asunto.value) formP.elements.asunto.value = puertaM ? 'Presupuesto de la ' + puertaM + ' con mis medidas' : 'Presupuesto con mis medidas';
-			if (formP.elements.consulta && !formP.elements.consulta.value) formP.elements.consulta.value = medidasQ.slice(0, 1990);
-			var notaM = document.querySelector('.v2-form-nota'), ayudaM = document.querySelector('.v2-form-ayuda');
-			if (notaM) { notaM.textContent = 'Tus medidas ya están en la consulta. Completa tus datos y envíanosla.'; notaM.hidden = false; }
-			if (ayudaM) ayudaM.hidden = true;
-			conMedidas = true;
-		}
-	}
+	var pedida = (location.search.match(/[?&]puerta=([a-z0-9-]+)/) || [])[1], hecho = false;
 
 	/* presupuesto desde una página de zona (?zona=oviedo): la zona va en el asunto */
 	var zonaQ = (location.search.match(/[?&]zona=([a-z-]+)/) || [])[1];
-	if (formP && zonaQ && !conMedidas) {
+	if (formP && zonaQ) {
 		var zonasP = {};
 		try { zonasP = JSON.parse(formP.getAttribute('data-zonas') || '{}'); } catch (err) { zonasP = {}; }
 		if (zonasP[zonaQ]) {
@@ -109,12 +93,12 @@
 			if (formP.elements.consulta && !formP.elements.consulta.value) formP.elements.consulta.value = 'Hola, quiero presupuesto de una puerta acorazada. Vivo ' + zonasP[zonaQ] + ', en (tu pueblo o barrio): ';
 			var notaZ = document.querySelector('.v2-form-nota');
 			if (notaZ) { notaZ.textContent = 'Ya hemos puesto tu zona en el asunto. Completa la consulta con tu pueblo o barrio y tus datos.'; notaZ.hidden = false; }
-			conMedidas = true;
+			hecho = true;
 		}
 	}
 
 	/* presupuesto: si se llega desde una ficha (?puerta=thor-20) la puerta ya va en el asunto */
-	if (formP && pedida && !conMedidas) {
+	if (formP && pedida && !hecho) {
 		var nombresP = {};
 		try { nombresP = JSON.parse(formP.getAttribute('data-puertas')); } catch (err) { nombresP = {}; }
 		var nombreP = nombresP[pedida];
