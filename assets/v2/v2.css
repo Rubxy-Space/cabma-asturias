@@ -314,7 +314,10 @@ html.con-intro .intro { display: block; }
 .v2-tarjeta { display: flex; flex-direction: column; height: 100%; border-radius: 20px; background: #fff; overflow: hidden; text-decoration: none; color: var(--texto) !important; box-shadow: 0 0 0 1px rgba(21,23,26,.05); transition: box-shadow .3s, transform .3s; }
 .v2-tarjeta:hover { transform: translateY(-3px); box-shadow: 0 22px 50px rgba(21,23,26,.12); }
 .v2-tarjeta-foto { display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 4; padding: 22px; background: linear-gradient(#fff, #f4f2ee); }
-.v2-tarjeta-foto img { max-height: 100%; width: auto; transition: transform .5s ease; }
+/* la foto ocupa el recuadro sin agrandarlo: si no, el recuadro crece hasta el alto natural de la imagen y las tarjetas se descuadran */
+.v2-tarjeta-foto, .cil-tarjeta-foto { position: relative; min-height: 0; overflow: hidden; }
+.v2-tarjeta-foto img, .cil-tarjeta-foto img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; max-height: none; padding: inherit; box-sizing: border-box; object-fit: contain; }
+.v2-tarjeta-foto img { transition: transform .5s ease; mix-blend-mode: multiply; }   /* el fondo blanco de las fotos no se ve como un recuadro */
 .v2-tarjeta:hover .v2-tarjeta-foto img { transform: scale(1.04); }
 .v2-tarjeta-foto-ancha { aspect-ratio: 16 / 10; padding: 0; }
 .v2-tarjeta-foto-ancha img { width: 100%; height: 100%; max-height: none; object-fit: cover; }
@@ -755,7 +758,6 @@ html.con-intro .intro { display: block; }
 .cil-tarjeta { display: flex; flex-direction: column; height: 100%; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px rgba(21,23,26,.06); color: var(--texto); text-decoration: none; transition: transform .25s, box-shadow .25s; }
 .cil-tarjeta:hover, .cil-tarjeta:focus-visible { transform: translateY(-3px); box-shadow: 0 18px 40px -22px rgba(21,23,26,.45), 0 0 0 1px rgba(21,23,26,.06); }
 .cil-tarjeta-foto { display: grid; place-items: center; aspect-ratio: 4 / 3; background: #f4f2ee; }
-.cil-tarjeta-foto img { width: 100%; height: 100%; object-fit: contain; }
 .cil-tarjeta-txt { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px 20px; }
 .cil-tarjeta-txt strong, .cil-tarjeta-txt .cil-tarjeta-nom { margin: 0; color: var(--tinta); font: 800 22px/1.15 var(--f-tit); }
 .cil-tarjeta-serie { color: var(--gris); font-size: 14px; font-weight: 600; }
